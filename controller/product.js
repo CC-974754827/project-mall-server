@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 <!-- 对系统文件进行读写操作 -->
 const fs = require('fs');
 <!-- 导入数据 -->
+<!-- exec()执行的意思 -->
 router.get('/insertProductInfo', async (ctx)=>{
     fs.readFile('./data/product.json','utf8',(err,data)=>{
         data = JSON.parse(data);
@@ -30,12 +31,19 @@ router.get('/insertProductInfo', async (ctx)=>{
     <!-- 没有则报错404 -->
     ctx.body = '导入数据';
 });
-<!-- 接受请求 -->
+<!-- 接受请求,返回商品信息 -->
 router.get('/getProductsByType', async (ctx)=>{
     const Product = mongoose.model('Product');
     <!-- skip()分页,需要整型 -->
     <!-- limit()加载几条 -->
     await Product.find({type: ctx.query.typeId}).skip(parseInt(ctx.query.start)).limit(parseInt(ctx.query.limit)).exec().then(res=>{
+        ctx.body = res;
+    });
+});
+<!-- 返回商品详情 -->
+router.get('/getDetail', async (ctx)=>{
+    const Product = mongoose.model('Product');
+    await Product.findOne({_id: ctx.query.id}).exec().then(res=>{
         ctx.body = res;
     });
 });

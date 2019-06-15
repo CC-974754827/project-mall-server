@@ -28,6 +28,8 @@ router.post('/registUser', async (ctx)=>{
 <!-- 登录 -->
 router.post('/loginUser',async (ctx)=>{
     <!-- 接收前端发来的数据 -->
+    <!-- ctx.request.body   post查询条件 -->
+    <!-- ctx.query.id  get查询条件 -->
     let loginUser = ctx.request.body;
     let userName = loginUser.userName;
     let password = loginUser.password;
