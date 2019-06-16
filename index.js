@@ -21,11 +21,14 @@ let user = require('./controller/user.js');
 let product = require('./controller/product.js');
 <!-- 商品类型部分 -->
 let type = require('./controller/type.js');
+<!-- 购物车添加信息部分 -->
+let cart = require('./controller/cart.js');
 
 let router = new Router();
 router.use('/user',user.routes());
 router.use('/product',product.routes());
 router.use('/type',type.routes());
+router.use('/cart',cart.routes());
 
 app.use(router.routes());
 app.use(router.allowedMethods());   <!--如果发送get，只接受get；如果发送post，只接受post-->
