@@ -3,6 +3,7 @@ const Router = require('koa-router');
 let router = new Router();
 const mongoose = require('mongoose');
 
+<!-- 添加购物车 -->
 router.post('/addCart', async (ctx) => {
     const Cart = mongoose.model('Cart');
     const cart = new Cart(ctx.request.body);
@@ -17,7 +18,14 @@ router.post('/addCart', async (ctx) => {
             code: 500,
             message: err
         };
-    })
+    });     
+});
+<!-- 显示购物车 -->
+router.get('/getCart', async (ctx)=>{
+    const Cart = mongoose.model('Cart');
+    await Cart.find({userId: ctx.query.userId}).exec().then(res=>{
+        ctx.body = res;
+    });
 });
 
 

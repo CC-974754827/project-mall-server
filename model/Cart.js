@@ -6,6 +6,7 @@ const cartSchema = new Schema({
     ID: ObjectId,
     productId: ObjectId,
     userId: ObjectId,
+    productSum: { type: Number, default: 1},
     createDate: { type: Date, default: Date.now() }
 });
 
